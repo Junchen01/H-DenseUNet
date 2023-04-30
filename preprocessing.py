@@ -14,8 +14,8 @@ def proprecessing(image_path, save_folder):
         img, img_header = load(image_path+file)
         img[img < -200] = -200
         img[img > 250] = 250
-	img = np.array(img, dtype='float32')
-	print ("Saving image "+file)
+        img = np.array(img, dtype='float32')
+        print ("Saving image "+file)
         save(img, "./data/" + save_folder + file)
 
 def generate_livertxt(image_path, save_folder):
@@ -26,7 +26,7 @@ def generate_livertxt(image_path, save_folder):
     if not os.path.exists("data/"+save_folder+'LiverPixels'):
         os.mkdir("data/"+save_folder+'LiverPixels')
 
-    for i in range(0,131):
+    for i in range(0,100):
         livertumor, header = load(image_path+'segmentation-'+str(i)+'.nii')
         f = open('data/' +save_folder+'/LiverPixels/liver_' + str(i) + '.txt', 'w')
         index = np.where(livertumor==1)
@@ -46,7 +46,7 @@ def generate_tumortxt(image_path, save_folder):
     if not os.path.exists("data/"+save_folder+'TumorPixels'):
         os.mkdir("data/"+save_folder+'TumorPixels')
 
-    for i in range(0,131):
+    for i in range(0,100):
         livertumor, header = load(image_path+'segmentation-'+str(i)+'.nii')
         f = open("data/"+save_folder+"/TumorPixels/tumor_"+str(i)+'.txt','w')
         index = np.where(livertumor==2)
@@ -67,7 +67,7 @@ def generate_txt(image_path, save_folder):
     # Generate Livertxt
     if not os.path.exists("data/"+save_folder+'LiverBox'):
         os.mkdir("data/"+save_folder+'LiverBox')
-    for i in range(0,131):
+    for i in range(0,100):
         values = np.loadtxt('data/myTrainingDataTxt/LiverPixels/liver_' + str(i) + '.txt', delimiter=' ', usecols=[0, 1, 2])
         a = np.min(values, axis=0)
         b = np.max(values, axis=0)
@@ -75,10 +75,10 @@ def generate_txt(image_path, save_folder):
         np.savetxt('data/myTrainingDataTxt/LiverBox/box_'+str(i)+'.txt', box,fmt='%d')
 
 
-proprecessing(image_path='data/TrainingData/', save_folder='myTrainingData/')
-proprecessing(image_path='data/TestData/', save_folder='myTestData/')
-print ("Generate liver txt ")
-generate_livertxt(image_path='data/TrainingData/', save_folder='myTrainingDataTxt/')
+# proprecessing(image_path='data/TrainingData/', save_folder='myTrainingData/')
+# proprecessing(image_path='data/TestData/', save_folder='myTestData/')
+# print ("Generate liver txt ")
+# generate_livertxt(image_path='data/TrainingData/', save_folder='myTrainingDataTxt/')
 print ("Generate tumor txt")
 generate_tumortxt(image_path='data/TrainingData/', save_folder='myTrainingDataTxt/')
 print ("Generate liver box ")

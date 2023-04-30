@@ -4,3 +4,6 @@ hybridnet.pyc
 loss.pyc
 net.pyc
 .idea/workspace.xml
+Keras-2.0.8/
+data/
+model/

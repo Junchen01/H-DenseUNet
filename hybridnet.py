@@ -3,7 +3,7 @@ from keras.layers import Input, ZeroPadding2D, concatenate, Lambda, ZeroPadding3
 from keras.layers.core import Dropout, Activation
 from keras.layers.convolutional import UpSampling2D, Conv2D, Conv3D, UpSampling3D, AveragePooling3D
 from keras.layers.pooling import AveragePooling2D, MaxPooling2D, MaxPooling3D
-from keras.layers.normalization import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization
 from lib.custom_layers import Scale
 import tensorflow as tf
 
@@ -385,7 +385,7 @@ def dense_rnn_net(args):
     input2d = Lambda(slice, arguments={'h1': 0, 'h2': 2})(img_input)
     single = Lambda(slice, arguments={'h1':0, 'h2':1})(img_input)
     input2d = concatenate([single, input2d], axis=3)
-    for i in xrange(args.input_cols - 2):
+    for i in range(args.input_cols - 2):
         input2d_tmp = Lambda(slice, arguments={'h1': i, 'h2': i + 3})(img_input)
         input2d = concatenate([input2d, input2d_tmp], axis=0)
         if i == args.input_cols - 3:
@@ -399,7 +399,7 @@ def dense_rnn_net(args):
     feature2d, classifer2d = DenseUNet(input2d, reduction=0.5)
     res2d = Lambda(slice2d, arguments={'h1': 0, 'h2': 1})(classifer2d)
     fea2d = Lambda(slice2d, arguments={'h1':0, 'h2':1})(feature2d)
-    for j in xrange(args.input_cols - 1):
+    for j in range(args.input_cols - 1):
         score = Lambda(slice2d, arguments={'h1': j + 1, 'h2': j + 2})(classifer2d)
         fea2d_slice = Lambda(slice2d, arguments={'h1': j + 1, 'h2': j + 2})(feature2d)
         res2d = concatenate([res2d, score], axis=3)

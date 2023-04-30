@@ -1,6 +1,6 @@
-import sys
-sys.path.insert(0,'Keras-2.0.8')
-from keras.engine import Layer, InputSpec
+# import sys
+# sys.path.insert(0,'Keras-2.0.8')
+from tensorflow.keras.layers import Layer, InputSpec
 try:
     from keras import initializations
 except ImportError:
@@ -54,7 +54,7 @@ class Scale(Layer):
         self.beta = K.variable(self.beta_init(shape), name='{}_beta'.format(self.name))
         #self.gamma = self.gamma_init(shape, name='{}_gamma'.format(self.name))
         #self.beta = self.beta_init(shape, name='{}_beta'.format(self.name))
-        self.trainable_weights = [self.gamma, self.beta]
+        self._trainable_weights = [self.gamma, self.beta]
 
         if self.initial_weights is not None:
             self.set_weights(self.initial_weights)

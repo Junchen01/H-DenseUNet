@@ -1,6 +1,6 @@
 from __future__ import print_function
-import sys
-sys.path.insert(0,'Keras-2.0.8')
+# import sys
+# sys.path.insert(0,'C:/Users/Junchen/cse320/H-DenseUNet/Keras-2.0.8')
 from keras import backend as K
 import os
 import numpy as np
@@ -14,7 +14,7 @@ from skimage import measure
 import argparse
 from pathlib import Path
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-K.set_image_dim_ordering('tf')  # Tensorflow dimension ordering in this code
+K.set_image_data_format('channels_first')  # Tensorflow dimension ordering in this code
 
 #  global parameters
 parser = argparse.ArgumentParser(description='Keras DenseUnet Test')
@@ -41,7 +41,7 @@ def predict(args):
     if not Path(args.save_path).exists():
         os.mkdir(args.save_path)
 
-    for id in xrange(70):
+    for id in range(70):
         print('-' * 30)
         print('Loading model and preprocessing test data...' + str(id))
         print('-' * 30)
