@@ -85,7 +85,7 @@ def predict(args):
         box=[]
         [liver_res, num] = measure.label(result1, return_num=True)
         region = measure.regionprops(liver_res)
-        for i in xrange(num):
+        for i in range(num):
             box.append(region[i].area)
         label_num = box.index(max(box)) + 1
         liver_res[liver_res != label_num] = 0
@@ -96,7 +96,7 @@ def predict(args):
         box = []
         [liver_labels, num] = measure.label(mask, return_num=True)
         region = measure.regionprops(liver_labels)
-        for i in xrange(num):
+        for i in range(num):
             box.append(region[i].area)
         label_num = box.index(max(box)) + 1
         liver_labels[liver_labels != label_num] = 0

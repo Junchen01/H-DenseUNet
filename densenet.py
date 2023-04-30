@@ -4,7 +4,7 @@ from keras.layers import Input, ZeroPadding2D, concatenate, add
 from keras.layers.core import Dropout, Activation
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.layers.pooling import AveragePooling2D, MaxPooling2D
-from keras.layers.normalization import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization
 from lib.custom_layers import Scale
 
 def DenseUNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, dropout_rate=0.0, weight_decay=1e-4, weights_path=None,

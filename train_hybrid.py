@@ -1,7 +1,7 @@
 """Test ImageNet pretrained DenseNet"""
 from __future__ import print_function
-import sys
-sys.path.insert(0,'Keras-2.0.8')
+# import sys
+# sys.path.insert(0,'Keras-2.0.8')
 from multiprocessing.dummy import Pool as ThreadPool
 from medpy.io import load
 import numpy as np
@@ -17,7 +17,7 @@ from skimage.transform import resize
 import argparse
 import os
 
-K.set_image_dim_ordering('tf')
+K.set_image_data_format('channels_first')
 
 #  global parameters
 parser = argparse.ArgumentParser(description='Keras DenseUnet Training')

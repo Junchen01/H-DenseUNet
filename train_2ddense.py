@@ -1,7 +1,7 @@
 """Test ImageNet pretrained DenseNet"""
 from __future__ import print_function
-import sys
-sys.path.insert(0,'Keras-2.0.8')
+# import sys
+# sys.path.insert(0,'Keras-2.0.8')
 from multiprocessing.dummy import Pool as ThreadPool
 import random
 from medpy.io import load
@@ -12,10 +12,10 @@ from keras.callbacks import ModelCheckpoint
 import keras.backend as K
 from loss import weighted_crossentropy_2ddense
 import os
-from keras.utils2.multi_gpu import make_parallel
+from multi_gpu import make_parallel
 from denseunet import DenseUNet
 from skimage.transform import resize
-K.set_image_dim_ordering('tf')
+K.set_image_data_format('channels_first')
 
 #  global parameters
 parser = argparse.ArgumentParser(description='Keras 2d denseunet Training')
@@ -175,7 +175,7 @@ def train_and_predict():
     print('Creating and compiling model...')
     print('-'*30)
 
-    model = DenseUNet(reduction=0.5, args=args)
+    model = DenseUNet(reduction=0.5)
     model.load_weights(args.model_weight, by_name=True)
     model = make_parallel(model, args.b / 10, mini_batch=10)
     sgd = SGD(lr=1e-3, momentum=0.9, nesterov=True)

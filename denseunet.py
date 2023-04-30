@@ -17,14 +17,14 @@ from keras.layers import Input, ZeroPadding2D, concatenate, add
 from keras.layers.core import Dropout, Activation
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.layers.pooling import AveragePooling2D, MaxPooling2D
-from keras.layers.normalization import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization
 import keras.backend as K
 import os
 import time
 from skimage.transform import resize
 from custom_layers import Scale
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-K.set_image_dim_ordering('tf')
+K.set_image_data_format('channels_first')
 
 path = './result_train_denseU167_fast_new/'
 batch_size = 10
@@ -148,7 +148,7 @@ def DenseUNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, dro
 
     # Handle Dimension Ordering for different backends
     global concat_axis
-    if K.image_dim_ordering() == 'tf':
+    if K.image_data_format() == 'tf':
       concat_axis = 3
       img_input = Input(batch_shape=(batch_size, img_deps, img_rows, 3), name='data')
     else:

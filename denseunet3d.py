@@ -8,11 +8,11 @@ from keras.layers import Input, ZeroPadding2D, concatenate, Lambda, ZeroPadding3
 from keras.layers.core import Dropout, Activation
 from keras.layers.convolutional import UpSampling2D, Conv2D, Conv3D, UpSampling3D, AveragePooling3D
 from keras.layers.pooling import AveragePooling2D, MaxPooling2D, MaxPooling3D
-from keras.layers.normalization import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization
 from lib.custom_layers import Scale
 import keras.backend as K
 import os
-K.set_image_dim_ordering('tf')
+K.set_image_data_format('channels_first')
 
 
 def conv_block3d(x, stage, branch, nb_filter, dropout_rate=None, weight_decay=1e-4):
